@@ -37,6 +37,7 @@ public class BookService {
                         book.title(),
                         book.author(),
                         book.price(),
+                        "Polarsophia",
                         existingBook.createdDate(),
                         existingBook.lastModifiedDate(),
                         existingBook.version()

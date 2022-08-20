@@ -12,6 +12,21 @@ repositories {
     mavenCentral()
 }
 
+bootBuildImage {
+    imageName = "${project.name}"
+    environment = ["BP_JVM_VERSION": "17.*"]
+
+    docker {
+        publishRegistry {
+            username = project.findProperty("registryUsername")
+            password = project.findProperty("registryToken")
+            url = project.findProperty("registryUrl")
+        }
+    }
+}
+
+
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -20,7 +35,7 @@ configurations {
 
 ext {
     set('springCloudVersion', "2021.0.3")
-    set('testcontainersVersion',"1.17.2")
+    set('testcontainersVersion', "1.17.2")
 }
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
