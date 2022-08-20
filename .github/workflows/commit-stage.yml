@@ -4,7 +4,7 @@ on: push
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: cboschmans-code/catalog-service
-  VERSION:latest
+  VERSION: latest
 
 jobs:
   build:
