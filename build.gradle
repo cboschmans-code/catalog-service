@@ -36,6 +36,8 @@ configurations {
 ext {
     set('springCloudVersion', "2021.0.3")
     set('testcontainersVersion', "1.17.2")
+    set('testKeycloakVersion', "2.1.2")
+    set('otelVersion',"1.12.1")
 }
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -45,10 +47,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.flywaydb:flyway-core'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation "com.github.dasniko:testcontainers-keycloak:${testKeycloakVersion}"
     annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 }
 
@@ -61,6 +69,10 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+springBoot {
+    buildInfo()
 }
 bootRun {
     systemProperty 'spring.profiles.active', 'testdata'
