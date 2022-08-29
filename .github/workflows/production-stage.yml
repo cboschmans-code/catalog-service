@@ -1,7 +1,7 @@
 name: Production Stage
 on:
-   repository_dispatch:
-     types: [app_delivery]
+  repository_dispatch:
+    types: [app_delivery]
 
 jobs:
   update:
